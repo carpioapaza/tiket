@@ -26,9 +26,16 @@
 #
 class Event < ApplicationRecord
   belongs_to :user
-  
-  enum restriction: { all_ages: 0, adults: 1}
+
+  enum restriction: { all_ages: 0, adults: 1 }
   enum visibility: { visibility_private: 0, visibility_public: 1 }
   enum admin_status: { pending_approval: 0, approved: 1, rejected: 2, deleted: 3 }
 
+  after_initialize :set_default_admin_status, if: :new_record?
+
+  private
+
+  def set_default_admin_status
+    self.admin_status ||= :pending_approval
+  end
 end
