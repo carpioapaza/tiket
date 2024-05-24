@@ -3,7 +3,7 @@
 # Table name: events
 #
 #  id             :bigint           not null, primary key
-#  admin_status   :integer          default(0)
+#  admin_status   :integer          default("pending_approval")
 #  capacity       :integer
 #  description    :text
 #  end_datetime   :datetime
