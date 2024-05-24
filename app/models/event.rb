@@ -26,6 +26,7 @@
 #
 class Event < ApplicationRecord
   belongs_to :user
+  has_one :location
 
   enum restriction: { all_ages: 0, adults: 1 }
   enum visibility: { visibility_private: 0, visibility_public: 1 }
