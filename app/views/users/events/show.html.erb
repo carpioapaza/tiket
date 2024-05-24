@@ -1,0 +1,22 @@
+<% provide(:title, @event.name) %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h1><%= @event.name %></h1>
+      <p><%= @event.description %></p>
+      <p><strong>Start:</strong> <%= @event.start_datetime.strftime("%B %d, %Y %I:%M %p") %></p>
+      <p><strong>End:</strong> <%= @event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></p>
+      <p><strong>Visibility:</strong> <%= @event.visibility %></p>
+      <p><strong>Restriction:</strong> <%= @event.restriction %></p>
+      <p><strong>Capacity:</strong> <%= @event.capacity %></p>
+      <p><strong>Video URL:</strong> <%= @event.video_url %></p>
+      <p><strong>Status:</strong> <%= @event.admin_status %></p>
+      <% if user_signed_in? && current_user == @event.user %>
+        <%= link_to 'Edit', edit_users_event_path(@event), class: 'btn btn-secondary' %>
+        <%= link_to 'Delete', users_event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <% end %>
+      <%= link_to 'Back', users_events_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

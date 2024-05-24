@@ -1,0 +1,37 @@
+<% provide(:title, 'All Events') %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-4">All Events</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @events.each do |event| %>
+            <tr>
+              <td><%= link_to event.name, users_event_path(event) %></td>
+              <td><%= truncate(event.description, length: 50) %></td>
+              <td><%= event.start_datetime.strftime("%B %d, %Y %I:%M %p") %></td>
+              <td><%= event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></td>
+              <td>
+                <%= link_to 'Show', users_event_path(event), class: 'btn btn-primary btn-sm' %>
+                <% if user_signed_in? && current_user == event.user %>
+                  <%= link_to 'Edit', edit_users_event_path(event), class: 'btn btn-secondary btn-sm' %>
+                  <%= link_to 'Delete', users_event_path(event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
