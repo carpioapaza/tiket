@@ -18,7 +18,7 @@
     @event.admin_status = :pending_approval
 
     if @event.save
-      redirect_to @event, notice: 'Event created successfully. Waiting for approval.'
+      redirect_to users_event_path(@event), notice: 'Event created successfully. Waiting for approval.'
     else
       render :new
     end
@@ -29,7 +29,7 @@
 
   def update
     if @event.update(event_params)
-      redirect_to @event, notice: 'Event updated successfully.'
+      redirect_to users_event_path(@event), notice: 'Event updated successfully.'
     else
       render :edit
     end
@@ -37,7 +37,7 @@
 
   def destroy
     @event.destroy
-    redirect_to events_path, notice: 'Event deleted successfully.'
+    redirect_to users_events_path, notice: 'Event deleted successfully.'
   end
 
  
