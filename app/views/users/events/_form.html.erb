@@ -1,4 +1,4 @@
-<%= form_with(model: [:users, @event], local: true) do |form| %>
+<%= form_with(model: [:users, @event], local: true, class: 'needs-validation', novalidate: true) do |form| %>
 
   <% if @event.errors.any? %>
     <div class="alert alert-danger">
@@ -11,47 +11,81 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Event Information</legend>
+
+        <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :start_datetime %>
+          <%= form.datetime_select :start_datetime, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :end_datetime %>
+          <%= form.datetime_select :end_datetime, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :visibility %>
+          <%= form.select :visibility, Event.visibilities.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :restriction %>
+          <%= form.select :restriction, Event.restrictions.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :capacity %>
+          <%= form.number_field :capacity, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :video_url %>
+          <%= form.text_field :video_url, class: 'form-control' %>
+        </div>
+      </fieldset>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: 'form-control' %>
-  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Location Information</legend>
 
-  <div class="form-group">
-    <%= form.label :start_datetime %>
-    <%= form.datetime_select :start_datetime, class: 'form-control' %>
-  </div>
+        <%= form.fields_for :location_attributes do |location_fields| %>
+          <div class="form-group">
+            <%= location_fields.label :city %>
+            <%= location_fields.select :city, Location::PERU_CITIES, {}, class: 'form-control', required: true %>
+          </div>
 
-  <div class="form-group">
-    <%= form.label :end_datetime %>
-    <%= form.datetime_select :end_datetime, class: 'form-control' %>
-  </div>
+          <div class="form-group">
+            <%= location_fields.label :address %>
+            <%= location_fields.text_field :address, class: 'form-control', required: true %>
+          </div>
 
-  <div class="form-group">
-    <%= form.label :visibility %>
-    <%= form.select :visibility, Event.visibilities.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :restriction %>
-    <%= form.select :restriction, Event.restrictions.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :capacity %>
-    <%= form.number_field :capacity, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :video_url %>
-    <%= form.text_field :video_url, class: 'form-control' %>
+          <div class="form-group">
+            <%= location_fields.label :reference %>
+            <%= location_fields.text_field :reference, class: 'form-control' %>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
   </div>
 
   <div class="actions">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>
+  
