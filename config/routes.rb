@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :admins
   devise_for :users, controllers: {
       sessions: 'users/sessions'
     }
+    
   # scope module: "users" do
   namespace :users do
     resources :events
