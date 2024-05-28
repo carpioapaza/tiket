@@ -26,7 +26,8 @@
 #
 class Event < ApplicationRecord
   belongs_to :user
-  has_one :location
+  has_one :location , dependent: :destroy
+  accepts_nested_attributes_for :location
 
   enum restriction: { all_ages: 0, adults: 1 }
   enum visibility: { visibility_private: 0, visibility_public: 1 }
