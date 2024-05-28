@@ -27,6 +27,7 @@
 class Event < ApplicationRecord
   belongs_to :user
   has_one :location , dependent: :destroy
+  has_one_attached :image
   accepts_nested_attributes_for :location
 
   enum restriction: { all_ages: 0, adults: 1 }

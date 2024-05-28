@@ -55,7 +55,7 @@ end
   
 
   def event_params
-    params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url,
+    params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url, :image,
                                   location_attributes: [:city, :address, :reference]) 
   end
 end
