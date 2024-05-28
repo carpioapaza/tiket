@@ -11,6 +11,7 @@
 
   def new
     @event = current_user.events.build
+    @event.build_location
   end
 
   def create
@@ -25,7 +26,10 @@
   end
 
   def edit
-  end
+  @event = Event.find(params[:id])
+  @event.build_location if @event.location.nil?
+end
+
 
   def update
     if @event.update(event_params)
@@ -48,8 +52,11 @@
     @event = Event.find(params[:id])
   end
 
+  
+
   def event_params
-    params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url)
+    params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url,
+                                  location_attributes: [:city, :address, :reference]) 
   end
 end
 
