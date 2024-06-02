@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      /* Estilos de correo electrónico deben estar en línea */
+    </style>
+  </head>
+
+  <body>
+    <h1><%= @event.name %></h1>
+
+    <p>
+      <%= @greeting %>, este es el nuevo evento creado:
+    </p>
+
+    <p>
+      Título del evento: <%= @event.name %><br>
+      Descripción del evento: <%= @event.description %><br>
+      Fecha de inicio: <%= @event.start_datetime.strftime("%d/%m/%Y %H:%M") %><br>
+      Fecha de fin: <%= @event.end_datetime.strftime("%d/%m/%Y %H:%M") %>
+    </p>
+  </body>
+</html>

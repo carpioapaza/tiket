@@ -18,5 +18,6 @@
 #  fk_rails_...  (admin_id => admins.id)
 #
 class Category < ApplicationRecord
+  has_many :events
   belongs_to :admin
 end

@@ -5,7 +5,7 @@
   def index
     @events = Event.all
   end
-
+  
   def show
   end
 
@@ -16,9 +16,11 @@
 
   def create
     @event = current_user.events.build(event_params)
+    @event.category_id = params[:event][:category_id]
     @event.admin_status = :pending_approval
-
+    @admin = Admin.first 
     if @event.save
+      AdminMailer.new_event_notification(@event, @admin).deliver_now
       redirect_to users_event_path(@event), notice: 'Event created successfully. Waiting for approval.'
     else
       render :new
@@ -26,9 +28,9 @@
   end
 
   def edit
-  @event = Event.find(params[:id])
-  @event.build_location if @event.location.nil?
-end
+      @event = Event.find(params[:id])
+      @event.build_location if @event.location.nil?
+    end
 
 
   def update
@@ -54,10 +56,13 @@ end
 
   
 
-  def event_params
-    params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url, :image,
-                                  location_attributes: [:city, :address, :reference]) 
-  end
+def event_params
+  params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url, :image,
+                                location_attributes: [:city, :address, :reference],
+                                category_id: [:category_id]) 
+end
+
+
 end
 
     

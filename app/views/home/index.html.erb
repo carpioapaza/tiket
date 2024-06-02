@@ -1,4 +1,9 @@
-Hola, esta será la pagina para msotrar lo siguiente:
+<%# Hola, esta será la pagina para msotrar lo siguiente:
 -Eventos recientes
 -Eventos populares
--Etc
+-Etc %>
+<div class="container">
+  <div class="row">
+    <%= render 'events', events: @events %>
+  </div>
+</div>

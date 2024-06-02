@@ -1,5 +1,4 @@
-<%= form_with(model: [:users, @event], local: true, class: 'needs-validation', novalidate: true) do |form| %>
-
+<%= form_with(model: [:users, @event], local: true, html: { class: 'needs-validation', novalidate: true }) do |form| %>
   <% if @event.errors.any? %>
     <div class="alert alert-danger">
       <h4><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h4>
@@ -10,12 +9,11 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="row">
-    <div class="col-md-6">
+  
+  <div class="container d-flex flex-wrap justify-content-between gap-3">
+    <div class="flex-grow-1 mr-3">
       <fieldset>
         <legend>Event Information</legend>
-
         <div class="form-group">
           <%= form.label :name %>
           <%= form.text_field :name, class: 'form-control', required: true %>
@@ -25,25 +23,30 @@
           <%= form.label :description %>
           <%= form.text_area :description, class: 'form-control', required: true %>
         </div>
+        <div class="d-flex gap-3">
+          <div class="w-50">
+            <div class="form-group">
+              <%= form.label :start_datetime %>
+              <%= form.datetime_select :start_datetime, { default: Time.current }, { class: 'form-control w-100' } %>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <%= form.label :start_datetime %>
-          <%= form.datetime_select :start_datetime, class: 'form-control', required: true %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :end_datetime %>
-          <%= form.datetime_select :end_datetime, class: 'form-control', required: true %>
+          <div class="w-50">
+            <div class="form-group">
+              <%= form.label :end_datetime %>
+              <%= form.datetime_select :end_datetime, { default: Time.current }, { class: 'form-control w-100' } %>
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
           <%= form.label :visibility %>
-          <%= form.select :visibility, Event.visibilities.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control', required: true %>
+          <%= form.select :visibility, Event.visibilities.keys.map { |w| [w.humanize, w] }, { prompt: 'Select visibility' }, class: 'form-control', required: true %>
         </div>
 
         <div class="form-group">
           <%= form.label :restriction %>
-          <%= form.select :restriction, Event.restrictions.keys.map { |w| [w.humanize, w] }, {}, class: 'form-control', required: true %>
+          <%= form.select :restriction, Event.restrictions.keys.map { |w| [w.humanize, w] }, { prompt: 'Select restriction' }, class: 'form-control', required: true %>
         </div>
 
         <div class="form-group">
@@ -55,7 +58,7 @@
           <%= form.label :video_url %>
           <%= form.text_field :video_url, class: 'form-control' %>
         </div>
-        
+
         <div class="form-group">
           <%= form.label :image %>
           <%= form.file_field :image, class: 'form-control' %>
@@ -66,17 +69,14 @@
         </div>
       </fieldset>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
+    
+    <div class="flex-grow-1 mr-3">
       <fieldset>
         <legend>Location Information</legend>
-
-        <%= form.fields_for :location_attributes do |location_fields| %>
+        <%= form.fields_for :location do |location_fields| %>
           <div class="form-group">
             <%= location_fields.label :city %>
-            <%= location_fields.select :city, Location::PERU_CITIES, {}, class: 'form-control', required: true %>
+            <%= location_fields.select :city, Location::PERU_CITIES, { prompt: 'Select a city' }, class: 'form-control', required: true %>
           </div>
 
           <div class="form-group">
@@ -91,9 +91,19 @@
         <% end %>
       </fieldset>
     </div>
+    
+    <div class="flex-grow-1">
+      <fieldset>
+        <legend>Category</legend>
+        <div class="form-group">
+          <%= form.label :category_id %>
+          <%= form.select :category_id, Category.pluck(:name, :id), { prompt: 'Select a category' }, { class: 'form-control', required: true } %>
+        </div>
+      </fieldset>
+    </div>
   </div>
 
-  <div class="actions">
+  <div class="actions d-flex justify-content-center">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

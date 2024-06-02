@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   namespace :users do
     resources :events
   end
-  get '/events', to: 'home#index_all', as: 'all_events'
+  namespace :admins do
+    resources :categories
+  end
+  get '/events', to: 'home#index'
   root "home#index"
 
     # Captura cualquier ruta no encontrada y muestra un error 404

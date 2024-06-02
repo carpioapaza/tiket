@@ -1,0 +1,13 @@
+<p>
+  <strong>Nombre:</strong>
+  <%= @category.name %>
+</p>
+
+<p>
+  <strong>Descripción:</strong>
+  <%= @category.description %>
+</p>
+
+<%= link_to 'Editar', edit_admins_category_path(@category), class: 'btn btn-primary' %>
+<%= link_to 'Eliminar', admins_category_path(@category), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-danger' %>
+<%= link_to 'Volver', admins_categories_path, class: 'btn btn-secondary' %>
