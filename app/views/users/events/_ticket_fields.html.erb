@@ -1,0 +1,21 @@
+<div class="nested-fields">
+  <div class="form-group d-flex gap-3">
+    <div>
+      <%= f.label :ticket_name %>
+      <%= f.text_field :ticket_name, class: 'form-control', required: true %>
+    </div>
+    <div>
+      <%= f.label :quantity_available %>
+      <%= f.number_field :quantity_available, class: 'form-control', required: true %>
+    </div>
+    <div>
+      <%= f.label :price %>
+      <%= f.number_field :price, step: 0.01, class: 'form-control', required: true %>
+    </div>
+    <div>
+      <%= f.label :currency %>
+      <%= f.text_field :currency, class: 'form-control', required: true %>
+    </div>
+    <button type="button" data-action="click->tickets#removeTicket" class="btn btn-danger mt-2">Remove</button>
+  </div>
+</div>

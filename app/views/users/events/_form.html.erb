@@ -101,9 +101,29 @@
         </div>
       </fieldset>
     </div>
+    <div data-controller="tickets">
+        <div data-tickets-target="tickets">
+          <%= form.fields_for :tickets do |ticket_fields| %>
+            <%= render 'ticket_fields', f: ticket_fields %>
+          <% end %>
+        </div>
+        
+      <div>
+        <button type="button" data-action="click->tickets#addTicket" class="btn btn-secondary mt-2">Add Ticket</button>
+      </div>
+    </div>
+    <!-- Hidden blueprint template -->
+    <div id="ticket_template" style="display: none;">
+      <%= form.fields_for :tickets, @event.tickets.build, child_index: 'NEW_RECORD' do |ticket_fields| %>
+        <%= render 'ticket_fields', f: ticket_fields %>
+      <% end %>
+    </div>
+
   </div>
+
 
   <div class="actions d-flex justify-content-center">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>
+

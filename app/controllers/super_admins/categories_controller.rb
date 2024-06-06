@@ -1,26 +1,26 @@
-class Admins::CategoriesController < ApplicationController
-  before_action :authenticate_admin!
+class SuperAdmins::CategoriesController < ApplicationController
+  before_action :authenticate_super_admin!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @categories = current_admin.categories
+    @categories = current_super_admin.categories
   end
 
   def show
   end
 
   def new
-    @category = current_admin.categories.build
+    @category = current_super_admin.categories.build
   end
 
   def edit
   end
 
   def create
-    @category = current_admin.categories.build(category_params)
+    @category = current_super_admin.categories.build(category_params)
 
     if @category.save
-      redirect_to admins_categories_path(@category), notice: 'Categoría creada correctamente.'
+      redirect_to super_admins_categories_path(@category), notice: 'Categoría creada correctamente.'
     else
       render :new
     end
@@ -36,7 +36,7 @@ class Admins::CategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to admins_categories_url, notice: 'Categoría eliminada correctamente.'
+    redirect_to super_admins_categories_url, notice: 'Categoría eliminada correctamente.'
   end
 
   private

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: admins
+# Table name: super_admins
 #
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
@@ -13,14 +13,15 @@
 #
 # Indexes
 #
-#  index_admins_on_email                 (email) UNIQUE
-#  index_admins_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_super_admins_on_email                 (email) UNIQUE
+#  index_super_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #
-class Admin < ApplicationRecord
+class SuperAdmin < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   has_many :categories
+  
 end

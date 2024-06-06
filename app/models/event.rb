@@ -30,9 +30,10 @@
 class Event < ApplicationRecord
   belongs_to :user
   belongs_to :category
-  has_one :location , dependent: :destroy
+  has_one :location, dependent: :destroy
   has_one_attached :image
-  accepts_nested_attributes_for :location
+  has_many :tickets, dependent: :destroy
+  accepts_nested_attributes_for :location, :tickets, allow_destroy: true
 
   enum restriction: { all_ages: 0, adults: 1 }
   enum visibility: { visibility_private: 0, visibility_public: 1 }
@@ -46,3 +47,4 @@ class Event < ApplicationRecord
     self.admin_status ||= :pending_approval
   end
 end
+

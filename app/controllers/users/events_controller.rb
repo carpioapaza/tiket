@@ -16,11 +16,13 @@
 
   def create
     @event = current_user.events.build(event_params)
+    puts "Parametros recibidos: #{event_params.inspect}" # Agrega este puts para imprimir los parámetros recibidos
+
     @event.category_id = params[:event][:category_id]
     @event.admin_status = :pending_approval
-    @admin = Admin.first 
+    @admin = SuperAdmin.first 
     if @event.save
-      AdminMailer.new_event_notification(@event, @admin).deliver_now
+      # AdminMailer.new_event_notification(@event, @admin).deliver_now
       redirect_to users_event_path(@event), notice: 'Event created successfully. Waiting for approval.'
     else
       render :new
@@ -53,13 +55,11 @@
   def set_event
     @event = Event.find(params[:id])
   end
-
-  
-
 def event_params
   params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url, :image,
+                                :category_id,
                                 location_attributes: [:city, :address, :reference],
-                                category_id: [:category_id]) 
+                                tickets_attributes: [:id, :ticket_name, :quantity_available, :price, :currency, :_destroy])
 end
 
 
