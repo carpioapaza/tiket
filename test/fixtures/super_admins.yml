@@ -8,6 +8,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :string           default("super_admin")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
