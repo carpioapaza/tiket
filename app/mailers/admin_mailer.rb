@@ -11,4 +11,11 @@ class AdminMailer < ApplicationMailer
     @greeting = "Hola" # Puedes personalizar el saludo aquí
     mail(to: @admin.email, subject: "Nuevo evento creado: #{@event.name}")
   end
+
+  def invite_email(admin, password)
+    @admin = admin
+    @password = password
+    mail(to: @admin.email, subject: '¡Bienvenido! Invitación de Registro')
+  end
+  
 end

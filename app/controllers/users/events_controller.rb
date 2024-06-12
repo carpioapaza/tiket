@@ -22,7 +22,7 @@
     @event.admin_status = :pending_approval
     @admin = SuperAdmin.first 
     if @event.save
-      # AdminMailer.new_event_notification(@event, @admin).deliver_now
+      AdminMailer.new_event_notification(@event, @admin).deliver_now
       redirect_to users_event_path(@event), notice: 'Event created successfully. Waiting for approval.'
     else
       render :new

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # devise_for :super_admins
+  devise_for :admins
     devise_for :super_admins, controllers: {
       sessions: 'super_admins/sessions'
     }
@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   end
   namespace :super_admins do
     resources :categories
+    resources :admins
+  end
+  namespace :admins do
+    # resources :admins
+    get "/me", to: "admins#me"
   end
   get '/events', to: 'home#index'
   root "home#index"

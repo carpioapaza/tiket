@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h2>Bienvenido a nuestra aplicación</h2>
+  
+  <p>Hola <%= @admin.first_name %>,</p>
+  
+  <p>Has sido invitado a unirte como administrador en nuestra aplicación. A continuación, encontrarás tus datos de acceso:</p>
+  
+  <ul>
+    <li><strong>Correo electrónico:</strong> <%= @admin.email %></li>
+    <li><strong>Contraseña:</strong> <%= @password %></li>
+  </ul>
+  
+  <p>Por favor, sigue este enlace para iniciar sesión:</p>
+  
+  <p><a href="<%= root_url %>">Iniciar sesión</a></p>
+  
+  <p>Gracias,</p>
+  <p>El equipo de nuestra aplicación</p>
+</body>
+</html>
