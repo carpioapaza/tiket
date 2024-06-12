@@ -24,8 +24,9 @@ class SuperAdmin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :categories
+  has_many :admins
   
-  enum role: { junior: 'junior', senior: 'senior', super_admin: 'super_admin' }
+  # enum role: { junior: 'junior', senior: 'senior', super_admin: 'super_admin' }
 
 end
   

@@ -25,10 +25,29 @@
 #
 #  fk_rails_...  (super_admin_id => super_admins.id)
 #
-require 'test_helper'
+class Admin < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
-class AdminTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  belongs_to :super_admin
+
+  enum role: { junior: 'junior', senior: 'senior' }
+
+  def self.invite_and_create(attributes)
+  password = Devise.friendly_token.first(8) # Generar una contraseña aleatoria
+  admin = new(attributes.merge(password: password))
+  if admin.save
+    puts "Admin saved successfully"
+    AdminMailer.invite_email(admin, password).deliver_later # Enviar correo electrónico de invitación
+    puts "Invite email sent"
+    admin
+  else
+    puts "Error saving admin"
+    nil
+  end
+end
+
+    
 end
