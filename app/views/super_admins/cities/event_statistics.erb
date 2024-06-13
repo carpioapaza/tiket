@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>Event Statistics</h1>
+  <div class="row">
+    <% @cities.each do |city| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= city.name %></h5>
+            <p class="card-text">Total Events: <%= city.events.count %></p>
+            <a href="<%= super_admins_city_path(city) %>" class="btn btn-primary">View City</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

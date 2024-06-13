@@ -2,7 +2,8 @@
 
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-6">
+    <!-- Event Information -->
+    <div class="col-md-6 mb-4">
       <div class="card">
         <div class="card-body">
           <h1 class="card-title"><%= @event.name %></h1>
@@ -10,22 +11,24 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Start:</strong> <%= @event.start_datetime.strftime("%B %d, %Y %I:%M %p") %></li>
             <li class="list-group-item"><strong>End:</strong> <%= @event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></li>
-            <li class="list-group-item"><strong>Visibility:</strong> <%= @event.visibility %></li>
-            <li class="list-group-item"><strong>Restriction:</strong> <%= @event.restriction %></li>
+            <li class="list-group-item"><strong>Visibility:</strong> <%= @event.visibility.humanize %></li>
+            <li class="list-group-item"><strong>Restriction:</strong> <%= @event.restriction.humanize %></li>
             <li class="list-group-item"><strong>Capacity:</strong> <%= @event.capacity %></li>
             <li class="list-group-item"><strong>Video URL:</strong> <%= @event.video_url %></li>
-            <li class="list-group-item"><strong>Status:</strong> <%= @event.admin_status %></li>
+            <li class="list-group-item"><strong>Status:</strong> <%= @event.admin_status.humanize %></li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+
+    <!-- Location Information -->
+    <div class="col-md-6 mb-4">
       <div class="card">
         <div class="card-body">
           <h2 class="card-title">Location Information</h2>
           <% if @event.location.present? %>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><strong>City:</strong> <%= @event.location.city %></li>
+              <li class="list-group-item"><strong>City:</strong> <%= @event.city.name %></li>
               <li class="list-group-item"><strong>Address:</strong> <%= @event.location.address %></li>
               <li class="list-group-item"><strong>Reference:</strong> <%= @event.location.reference %></li>
             </ul>
@@ -35,12 +38,17 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <% if @event.image.attached? %>
-        <p><strong>Image</strong></p>
-        <%= image_tag @event.image %>
-      <% end %>
-      
-    </div>
+
+    <!-- Event Image -->
+    <% if @event.image.attached? %>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Event Image</h2>
+            <%= image_tag @event.image, class: 'img-fluid' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   namespace :super_admins do
     resources :categories
     resources :admins
+    resources :cities do
+      get 'event_statistics', on: :collection
+    end
   end
   namespace :admins do
     # resources :admins

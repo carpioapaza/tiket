@@ -15,16 +15,19 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  category_id    :bigint
+#  city_id        :bigint
 #  user_id        :bigint
 #
 # Indexes
 #
 #  index_events_on_category_id  (category_id)
+#  index_events_on_city_id      (city_id)
 #  index_events_on_user_id      (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (category_id => categories.id)
+#  fk_rails_...  (city_id => cities.id)
 #  fk_rails_...  (user_id => users.id)
 #
 require 'test_helper'

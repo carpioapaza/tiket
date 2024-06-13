@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-  
+
   <div class="container d-flex flex-wrap justify-content-between gap-3">
     <div class="flex-grow-1 mr-3">
       <fieldset>
@@ -23,6 +23,7 @@
           <%= form.label :description %>
           <%= form.text_area :description, class: 'form-control', required: true %>
         </div>
+
         <div class="d-flex gap-3">
           <div class="w-50">
             <div class="form-group">
@@ -30,7 +31,6 @@
               <%= form.datetime_select :start_datetime, { default: Time.current }, { class: 'form-control w-100' } %>
             </div>
           </div>
-
           <div class="w-50">
             <div class="form-group">
               <%= form.label :end_datetime %>
@@ -69,16 +69,15 @@
         </div>
       </fieldset>
     </div>
-    
+
     <div class="flex-grow-1 mr-3">
       <fieldset>
         <legend>Location Information</legend>
-        <%= form.fields_for :location do |location_fields| %>
           <div class="form-group">
-            <%= location_fields.label :city %>
-            <%= location_fields.select :city, Location::PERU_CITIES, { prompt: 'Select a city' }, class: 'form-control', required: true %>
+            <%= form.label :city_id %>
+            <%= form.select :city_id, City.pluck(:name, :id), { prompt: 'Select a city' }, { class: 'form-control', required: true } %>
           </div>
-
+        <%= form.fields_for :location do |location_fields| %>
           <div class="form-group">
             <%= location_fields.label :address %>
             <%= location_fields.text_field :address, class: 'form-control', required: true %>
@@ -91,7 +90,7 @@
         <% end %>
       </fieldset>
     </div>
-    
+
     <div class="flex-grow-1">
       <fieldset>
         <legend>Category</legend>
@@ -101,29 +100,30 @@
         </div>
       </fieldset>
     </div>
+
     <div data-controller="tickets">
+      <fieldset>
+        <legend>Tickets</legend>
         <div data-tickets-target="tickets">
           <%= form.fields_for :tickets do |ticket_fields| %>
             <%= render 'ticket_fields', f: ticket_fields %>
           <% end %>
         </div>
-        
-      <div>
-        <button type="button" data-action="click->tickets#addTicket" class="btn btn-secondary mt-2">Add Ticket</button>
-      </div>
+        <div>
+          <button type="button" data-action="click->tickets#addTicket" class="btn btn-secondary mt-2">Add Ticket</button>
+        </div>
+      </fieldset>
     </div>
+
     <!-- Hidden blueprint template -->
     <div id="ticket_template" style="display: none;">
       <%= form.fields_for :tickets, @event.tickets.build, child_index: 'NEW_RECORD' do |ticket_fields| %>
         <%= render 'ticket_fields', f: ticket_fields %>
       <% end %>
     </div>
-
   </div>
 
-
-  <div class="actions d-flex justify-content-center">
+  <div class="actions d-flex justify-content-center mt-3">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>
-

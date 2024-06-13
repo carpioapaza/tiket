@@ -1,0 +1,13 @@
+<p>
+  <strong>Name:</strong>
+  <%= @city.name %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @city.super_admin.email %> 
+</p>
+
+<%= link_to 'Edit', edit_super_admins_city_path(@city) %> |
+<%= link_to 'Volver', super_admins_cities_path, class: 'btb btb-secondary' %>
+

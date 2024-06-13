@@ -18,7 +18,6 @@ class SuperAdmins::CategoriesController < ApplicationController
 
   def create
     @category = current_super_admin.categories.build(category_params)
-
     if @category.save
       redirect_to super_admins_categories_path(@category), notice: 'Categoría creada correctamente.'
     else
