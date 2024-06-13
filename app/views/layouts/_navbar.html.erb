@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <%= link_to "Tiket", root_path, class: "navbar-brand" %>
+
+    <div class="collapse navbar-collapse justify-content-between">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to "Buscador de eventos", events_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "CATEGORIAS", super_admins_categories_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "CIUDAD", super_admins_cities_path, class: "nav-link" %>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item dropdown" data-controller="navbar">
+          <%= link_to "#", class: "nav-link dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, aria: { expanded: "false" }, data: { target: "navbar.dropdown" } do %>
+            <%= current_user.email %>
+          <% end %>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" data-navbar-target="dropdown">
+            <%= link_to "Mi perfil", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Mis eventos creados", users_events_path, class: "dropdown-item" %>
+            <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Iniciar sesión", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Registrarse", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
