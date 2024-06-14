@@ -1,7 +1,7 @@
 <% @events.each do |event| %>
   <div class="col-10 col-md-6 col-lg-3 mb-4 d-flex">
     <div class="card flex-fill">
-      <%= link_to users_event_path(event), class: "card-link d-flex flex-column h-100" do %>
+      <%= link_to event_path(event), class: "card-link d-flex flex-column h-100" do %>
         <div class="card-img-top">
           <%= image_tag event.image, class: "img-fluid", alt: event.name, style: "height: 150px; object-fit: cover;" %>
         </div>

@@ -22,10 +22,11 @@ Rails.application.routes.draw do
     # resources :admins
     get "/me", to: "admins#me"
   end
-  get '/events', to: 'home#index'
-  root "home#index"
+  
+  get '/events/:id', to: 'events#show', as: :event
+  get '/events', to: 'events#index'
+  get '/events/:filter', to: 'events#index_by_filter', as: :events_by_filter
 
-    # Captura cualquier ruta no encontrada y muestra un error 404
+  root "events#index"
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
