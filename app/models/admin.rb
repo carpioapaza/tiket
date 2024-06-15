@@ -33,7 +33,11 @@ class Admin < ApplicationRecord
 
   belongs_to :super_admin
 
-  enum role: { junior: 'junior', senior: 'senior' }
+  # enum role: { junior: 'junior', senior: 'senior' }
+  enum role: { event_admin: 'event_admin', customer_support: 'customer_support' }
+
+
+
 
   def self.invite_and_create(attributes)
   password = Devise.friendly_token.first(8) # Generar una contraseña aleatoria

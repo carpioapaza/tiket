@@ -1,5 +1,5 @@
 <%# <%= form_with(model: [:super_admins, @admin], local: true) do |form| %> 
-<%= form_with(model: [:super_admins, @admin], url: super_admins_admins_path, local: true) do |form| %>
+<%= form_with(model: [:super_admins, @admin], local: true) do |form| %>
     <% if @admin.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@admin.errors.count, "error") %> prohibited this admin from being saved:</h2>
