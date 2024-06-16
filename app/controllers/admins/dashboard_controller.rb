@@ -1,8 +1,7 @@
-class Admins::AdminsController < ApplicationController
+class Admins::DashboardController < ApplicationController
   before_action :authenticate_admin!
 
-  def me
+   def index
     @admin = current_admin
   end
-
 end

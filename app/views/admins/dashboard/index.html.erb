@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 class="mt-4">Admin Dashboard</h1>
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Holi, <%= @admin.first_name %> <%= @admin.last_name %>!</strong>
+      </p>
+      <p class="card-text">
+        <strong>Role:</strong>
+        <%= @admin.role.titleize %>
+      </p>
+      <%= link_to 'Manage Events', admins_events_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

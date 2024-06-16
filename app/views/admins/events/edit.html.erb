@@ -1,0 +1,25 @@
+<div class="container">
+  <h1 class="mt-4">Edit Event</h1>
+  <%= form_with(model: [:admins, @event], local: true) do |form| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+        <ul>
+          <% @event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :admin_status %>
+      <%= form.select :admin_status, Event.admin_statuses.keys.map { |status| [status.titleize, status] }, {}, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit 'Update Event', class: 'btn btn-primary', data: { confirm: 'Are you sure you want to update this event?' } %>
+    </div>
+  <% end %>
+  <%= link_to 'Back', admins_event_path(@event), class: "btn btn-secondary mt-2" %>
+</div>

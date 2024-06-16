@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   namespace :admins do
     # resources :admins
     get "/me", to: "admins#me"
+    resources :events
+    resources :dashboard
   end
   
   get '/events/:id', to: 'events#show', as: :event
