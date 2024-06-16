@@ -10,7 +10,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :string           default("junior")
+#  role                   :string           default(NULL)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  super_admin_id         :bigint           not null
@@ -32,6 +32,7 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :super_admin
+  has_many :events
 
   # enum role: { junior: 'junior', senior: 'senior' }
   enum role: { event_admin: 'event_admin', customer_support: 'customer_support' }

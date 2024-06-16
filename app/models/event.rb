@@ -14,24 +14,28 @@
 #  visibility     :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  admin_id       :bigint
 #  category_id    :bigint
 #  city_id        :bigint
 #  user_id        :bigint
 #
 # Indexes
 #
+#  index_events_on_admin_id     (admin_id)
 #  index_events_on_category_id  (category_id)
 #  index_events_on_city_id      (city_id)
 #  index_events_on_user_id      (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (admin_id => admins.id)
 #  fk_rails_...  (category_id => categories.id)
 #  fk_rails_...  (city_id => cities.id)
 #  fk_rails_...  (user_id => users.id)
 #
 class Event < ApplicationRecord
   belongs_to :user
+  belongs_to :admin
   belongs_to :category
   belongs_to :city
   
@@ -44,12 +48,24 @@ class Event < ApplicationRecord
   enum visibility: { visibility_private: 0, visibility_public: 1 }
   enum admin_status: { pending_approval: 0, approved: 1, rejected: 2, deleted: 3 }
 
+  before_validation :assign_to_event_admin, on: :create
   after_initialize :set_default_admin_status, if: :new_record?
 
   private
 
   def set_default_admin_status
     self.admin_status ||= :pending_approval
+  end
+
+  def assign_to_event_admin
+    event_admins = Admin.where(role: :event_admin)
+    return if event_admins.empty?
+    
+    self.admin = if event_admins.count == 1
+                   event_admins.first
+                 else
+                   event_admins.min_by { |admin| admin.events.pending_approval.count }
+                 end
   end
 end
 
