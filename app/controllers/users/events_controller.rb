@@ -19,7 +19,7 @@
     @event.category_id = params[:event][:category_id]
 
     if @event.save
-      AdminMailer.new_event_notification(@event, @event.admin).deliver_now
+      # AdminMailer.new_event_notification(@event, @event.admin).deliver_now
       redirect_to users_event_path(@event), notice: 'Event created successfully. Waiting for approval.'
     else
       render :new

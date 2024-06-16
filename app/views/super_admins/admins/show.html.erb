@@ -27,4 +27,30 @@
       <%= link_to 'Back', super_admins_admins_path, class: "btn btn-secondary" %>
     </div>
   </div>
+
+  <div class="mt-4">
+    <h2>Events</h2>
+    <% if @admin.events.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Title</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @admin.events.each do |event| %>
+            <tr>
+              <td><%= event.id %></td>
+              <td><%= event.name %></td>
+              <td><%= event.admin_status.titleize %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No events found for this admin.</p>
+    <% end %>
+  </div>
 </div>
