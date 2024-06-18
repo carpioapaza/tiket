@@ -22,7 +22,10 @@ Rails.start();
 
 import 'controllers';
 import 'bootstrap';
+import 'jquery';
+import 'cocoon-js';
 import '../stylesheets/application.scss';
 import '../stylesheets/custom.scss';
+import 'stylesheets/flatpickr.scss'; 
 
 

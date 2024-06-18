@@ -1,4 +1,4 @@
-  class Users::EventsController < ApplicationController
+class Users::EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
@@ -12,6 +12,7 @@
   def new
     @event = current_user.events.build
     @event.build_location
+    @event.tickets.build
   end
 
   def create
@@ -27,10 +28,9 @@
   end
 
   def edit
-      @event = Event.find(params[:id])
-      @event.build_location if @event.location.nil?
-    end
-
+    @event.build_location if @event.location.nil?
+    @event.tickets.build if @event.tickets.empty?
+  end
 
   def update
     if @event.update(event_params)
@@ -45,21 +45,16 @@
     redirect_to users_events_path, notice: 'Event deleted successfully.'
   end
 
- 
-  
   private
 
   def set_event
     @event = Event.find(params[:id])
   end
+
   def event_params
     params.require(:event).permit(:name, :description, :start_datetime, :end_datetime, :visibility, :restriction, :capacity, :video_url, :image,
                                   :category_id, :city_id,
                                   location_attributes: [:address, :reference],
                                   tickets_attributes: [:id, :ticket_name, :quantity_available, :price, :currency, :_destroy])
   end
-
-
 end
-
-    
