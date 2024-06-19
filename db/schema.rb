@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_19_042328) do
+ActiveRecord::Schema.define(version: 2024_06_19_042744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,17 @@ ActiveRecord::Schema.define(version: 2024_06_19_042328) do
     t.index ["reset_password_token"], name: "index_super_admins_on_reset_password_token", unique: true
   end
 
+  create_table "ticket_purchases", force: :cascade do |t|
+    t.bigint "purchase_id"
+    t.bigint "ticket_id"
+    t.integer "quantity"
+    t.decimal "subtotal", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["purchase_id"], name: "index_ticket_purchases_on_purchase_id"
+    t.index ["ticket_id"], name: "index_ticket_purchases_on_ticket_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.string "ticket_name"
     t.integer "quantity_available"
@@ -158,5 +169,7 @@ ActiveRecord::Schema.define(version: 2024_06_19_042328) do
   add_foreign_key "locations", "events"
   add_foreign_key "purchases", "events"
   add_foreign_key "purchases", "users"
+  add_foreign_key "ticket_purchases", "purchases"
+  add_foreign_key "ticket_purchases", "tickets"
   add_foreign_key "tickets", "events"
 end
