@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_15_051153) do
+ActiveRecord::Schema.define(version: 2024_06_19_042328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,18 @@ ActiveRecord::Schema.define(version: 2024_06_15_051153) do
     t.index ["event_id"], name: "index_locations_on_event_id"
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.decimal "total_amount", precision: 10, scale: 2
+    t.string "payment_status"
+    t.string "transaction_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_purchases_on_event_id"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
+
   create_table "super_admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -144,5 +156,7 @@ ActiveRecord::Schema.define(version: 2024_06_15_051153) do
   add_foreign_key "events", "cities"
   add_foreign_key "events", "users"
   add_foreign_key "locations", "events"
+  add_foreign_key "purchases", "events"
+  add_foreign_key "purchases", "users"
   add_foreign_key "tickets", "events"
 end
