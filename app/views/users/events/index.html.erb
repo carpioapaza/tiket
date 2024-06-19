@@ -10,7 +10,6 @@
           <thead class="thead-dark">
             <tr>
               <th>Name</th>
-              <th>Description</th>
               <th>Start</th>
               <th>End</th>
               <th>Actions</th>
@@ -20,7 +19,6 @@
             <% @events.each do |event| %>
               <tr>
                 <td><%= link_to event.name, users_event_path(event) %></td>
-                <td><%= truncate(event.description, length: 50) %></td>
                 <td><%= event.start_datetime.strftime("%B %d, %Y %I:%M %p") %></td>
                 <td><%= event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></td>
                 <td>
