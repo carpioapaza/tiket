@@ -53,9 +53,11 @@ class Event < ApplicationRecord
 
   before_validation :assign_to_event_admin, on: :create
   after_initialize :set_default_admin_status, if: :new_record?
-
+  def minimum_ticket_price
+    tickets.minimum(:price) || 0
+  end
+  
   private
-
   def set_default_admin_status
     self.admin_status ||= :pending_approval
   end

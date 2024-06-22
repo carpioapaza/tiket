@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
    def index
-    @events = Event.all
+    @events = Event.includes(:tickets)
+
     # render template: 'home/events/index_all'
   end
   def show

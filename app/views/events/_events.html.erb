@@ -1,30 +1,26 @@
-<% @events.each do |event| %>
-  <div class="col-10 col-md-6 col-lg-3 mb-4 d-flex">
-    <div class="card flex-fill">
-      <%= link_to event_path(event), class: "card-link d-flex flex-column h-100" do %>
-        <div class="card-img-top">
-          <%= image_tag event.image, class: "img-fluid", alt: event.name, style: "height: 150px; object-fit: cover;" %>
-        </div>
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title" style="min-height: 3rem;"><strong><%= truncate(event.name, length: 50) %></strong></h5>
-          <p class="card-text" style="flex-grow: 1; min-height: 4rem; overflow: hidden; text-overflow: ellipsis;"><%= truncate(event.description, length: 100) %></p>
-          <p class="card-text">
-            <small class="text-muted">
-              <i class="fa fa-calendar"></i>
-              <%= l(event.start_datetime, format: :short) %> - <%= l(event.end_datetime, format: :short) %>
-            </small>
-          </p>
-        </div>
-        <div class="card-footer mt-auto">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <small class="text-muted">Desde</small>
-              <strong>USD Free</strong>
-            </div>
-            <div class="btn btn-primary">Detalles</div>
+<div class="event-grid">
+  <% @events.each do |event| %>
+    <div class="event-card">
+      <div class="event-img">
+        <%= image_tag event.image, class: "img-fluid", alt: event.name %>
+      </div>
+      <div class="event-details">
+        <h5 class="event-title"><%= truncate(event.name, length: 50) %></h5>
+        <p class="event-description"><%= truncate(event.description, length: 60) %></p>
+        <p class="event-dates">
+          <i class="fa fa-calendar"></i>
+          <%= l(event.start_datetime, format: :short) %> - <%= l(event.end_datetime, format: :short) %>
+        </p>
+        <div class="event-footer">
+          <div class="event-price">
+            <small class="text-muted">Desde:</small>
+            <strong> S/ <%=(event.minimum_ticket_price) %></strong>
+          </div>
+          <div class="details-link">
+            <%= link_to "Detalles", event_path(event), class: "btn btn-primary" %>
           </div>
         </div>
-      <% end %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
