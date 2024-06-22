@@ -1,102 +1,103 @@
 <% provide(:title, @event.name) %>
 
-<div>
-  <!-- Hero Section -->
-
-<% if @event.image.attached? %>
-  <div class="hero-section" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('<%= rails_blob_path(@event.image, only_path: true) %>');">
-    <div class="container">
-      <h1><%= @event.name %></h1>
-      <p><%= @event.start_datetime.strftime("%B %d, %Y %I:%M %p") %> - <%= @event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></p>
+<div class="container">
+  <% if @event.image.attached? %>
+    <div class="hero-section" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('<%= rails_blob_path(@event.image, only_path: true) %>');">
+  <% else %>
+    <div class="hero-section">
+  <% end %>
+      <div class="container">
+        <h1><%= @event.name %></h1>
+        <p><%= @event.start_datetime.strftime("%B %d, %Y %I:%M %p") %> - <%= @event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></p>
+      </div>
     </div>
-  </div>
-<% else %>
-  <div class="hero-section">
-    <div class="container">
-      <h1><%= @event.name %></h1>
-      <p><%= @event.start_datetime.strftime("%B %d, %Y %I:%M %p") %> - <%= @event.end_datetime.strftime("%B %d, %Y %I:%M %p") %></p>
-    </div>
-  </div>
-<% end %>
 
-
-
-  <!-- Event Details Section -->
   <div class="row mt-4">
     <div class="col-md-8">
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="card-title">Event Details</h2>
+          <h2 class="card-title">Detalles del evento</h2>
           <p class="card-text"><%= @event.description %></p>
-
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><strong>Visibility:</strong> <%= @event.visibility.humanize %></li>
-            <li class="list-group-item"><strong>Restriction:</strong> <%= @event.restriction.humanize %></li>
             <li class="list-group-item"><strong>Capacity:</strong> <%= @event.capacity %></li>
-            <li class="list-group-item"><strong>Video URL:</strong> <%= link_to @event.video_url, @event.video_url, target: "_blank" %></li>
-            <li class="list-group-item"><strong>Status:</strong> <%= @event.admin_status.humanize %></li>
           </ul>
         </div>
       </div>
 
-      <!-- Location Section -->
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="card-title">Location Information</h2>
+          <h2 class="card-title">Informacion de locación</h2>
           <% if @event.location.present? %>
-            <p><strong>City:</strong> <%= @event.city.name %></p>
-            <p><strong>Address:</strong> <%= @event.location.address %></p>
-            <p><strong>Reference:</strong> <%= @event.location.reference %></p>
+            <p><strong>Ciudad:</strong> <%= @event.city.name %></p>
+            <p><strong>Direccion:</strong> <%= @event.location.address %></p>
+            <p><strong>Referencia:</strong> <%= @event.location.reference %></p>
           <% else %>
-            <p>Location information not available.</p>
+            <p>Información de locación no disponible..</p>
           <% end %>
         </div>
       </div>
     </div>
 
     <div class="col-md-4">
-      <!-- Category Section -->
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="card-title">Category</h2>
+          <h2 class="card-title">Categoria</h2>
           <p>
             <span><%= @event.category.name %></span>
           </p>
         </div>
       </div>
 
-      <!-- Actions Section -->
-      <div class="card mb-4">
-        <div class="card-body text-center">
-          <%= link_to 'Buy Tickets', event_path(@event), class: 'btn btn-primary btn-lg' %>
+      <!-- Tickets Section -->
+      <div class="card mb-4" data-controller="ticket-selection">
+        <div class="card-body">
+          <h2 class="card-title">Tickets</h2>
+          <% if @event.tickets.present? %>
+            <ul class="list-group">
+              <% @event.tickets.each do |ticket| %>
+                <li class="list-group-item">
+                  <div>
+                    <h5><%= ticket.ticket_name %></h5>
+                    <p><strong>Price:</strong> <%= ticket.price %> <%= ticket.currency %></p>
+                  </div>
+                  <!-- Ticket Quantity Selection -->
+                  <div>
+                    <input type="number" min="0" max="<%= ticket.quantity_available %>" value="0" data-price="<%= ticket.price %>" data-id="<%= ticket.id %>" data-ticket-selection-target="quantity" data-action="input->ticket-selection#update">
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>Este evento no tiene tickets :c.</p>
+          <% end %>
+          <div>
+            <h5>Total:</h5>
+            <p><strong>Subtotal:</strong> <span data-ticket-selection-target="subtotal">0.00</span> PEN</p>
+          </div>
+          <%= form_with url: add_to_cart_path, method: :post, local: true do |form| %>
+            <% @event.tickets.each do |ticket| %>
+              <%= form.hidden_field "tickets[#{ticket.id}]", value: 0, data: { ticket_selection_target: 'hiddenField' } %>
+            <% end %>
+            <%= form.hidden_field :event_id, value: @event.id %>
+            <%= form.submit "Comprar", class: "btn btn-primary" %>
+          <% end %>
         </div>
-      </div>
-
-      <!-- Event Image -->
-      <% if @event.image.attached? %>
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <%= image_tag @event.image, class: 'img-fluid' %>
+      </div>e
+    <% if @event.video_url.present? %>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body text-center">
+              <h2 class="card-title">Event Video</h2>
+              <% video_id = @event.video_url.split("v=").last %>
+              <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/<%= video_id %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
           </div>
         </div>
-      <% end %>
+      </div>
+    <% end %>
     </div>
   </div>
-
-  <!-- Video Section -->
-  <% if @event.video_url.present? %>
-    <div class="row mt-4">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body text-center">
-            <h2 class="card-title">Event Video</h2>
-            <%= video_tag(@event.video_url, class: "w-100", controls: true) %>
-            <iframe width="560" height="315" src="<%= @event.video_url %>" frameborder="0" allowfullscreen></iframe>
-
-
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
 </div>

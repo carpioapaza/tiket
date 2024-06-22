@@ -14,7 +14,6 @@ class EventsController < ApplicationController
       elsif Category.exists?(name: filter)
         @events = Category.find_by(name: filter).events
       else
-        # Manejar el caso en el que no se encuentra ninguna ciudad ni categoría con el nombre proporcionado
       end
     end
 

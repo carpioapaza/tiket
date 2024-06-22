@@ -14,12 +14,12 @@ before_action :check_role
   def update
       if event_params[:admin_status] == 'deleted'
         if @event.destroy
-          redirect_to admins_events_path, notice: 'Event was successfully deleted.'
+          redirect_to admins_events_path, notice: 'Evento eliminado correctamente.'
         else
-          render :edit, alert: 'Failed to delete the event.'
+          render :edit, alert: 'Error al eliminar este evento'
         end
       elsif @event.update(event_params)
-        redirect_to admins_event_path(@event), notice: 'Event updated successfully.'
+        redirect_to admins_event_path(@event), notice: 'Evento actualizado correctamente.'
       else
         render :edit
       end

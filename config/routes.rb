@@ -1,16 +1,23 @@
 Rails.application.routes.draw do
   devise_for :admins
-    devise_for :super_admins, controllers: {
-      sessions: 'super_admins/sessions'
-    }
+  devise_for :super_admins, controllers: {
+    sessions: 'super_admins/sessions'
+  }
   devise_for :users, controllers: {
-      sessions: 'users/sessions'
-    }
-    
-  # scope module: "users" do
+    sessions: 'users/sessions'
+  }
+
+  # Rutas para eventos públicos (sin prefijo)
+  resources :events, only: [:index, :show]
+
+  # Namespace para usuarios
   namespace :users do
-    resources :events
+    resources :events # Eventos creados por el usuario
+    resources :purchases, only: [:show] do
+      resources :payments, only: [:new, :create]
+    end
   end
+
   namespace :super_admins do
     resources :categories
     resources :admins
@@ -18,17 +25,16 @@ Rails.application.routes.draw do
       get 'event_statistics', on: :collection
     end
   end
+
   namespace :admins do
-    # resources :admins
     get "/me", to: "admins#me"
     resources :events
     resources :dashboard
   end
-  
-  get '/events/:id', to: 'events#show', as: :event
-  get '/events', to: 'events#index'
-  get '/events/:filter', to: 'events#index_by_filter', as: :events_by_filter
 
+  # Rutas adicionales
+  post 'add_to_cart', to: 'users/purchases#create', as: 'add_to_cart'
+
+  # Ruta raíz
   root "events#index"
-
 end

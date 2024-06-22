@@ -42,11 +42,14 @@ class Event < ApplicationRecord
   has_one :location, dependent: :destroy
   has_one_attached :image
   has_many :tickets, dependent: :destroy
+  has_many :purchases, dependent: :destroy 
   accepts_nested_attributes_for :location, :tickets, allow_destroy: true
 
   enum restriction: { all_ages: 0, adults: 1 }
   enum visibility: { visibility_private: 0, visibility_public: 1 }
   enum admin_status: { pending_approval: 0, approved: 1, rejected: 2, deleted: 3 }
+
+  DEFAULT_CURRENCY = 'PEN'.freeze
 
   before_validation :assign_to_event_admin, on: :create
   after_initialize :set_default_admin_status, if: :new_record?

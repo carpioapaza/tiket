@@ -1,0 +1,26 @@
+<h1>Purchase Details</h1>
+
+<p>
+  <strong>Event:</strong>
+  <%= @purchase.event.name %>
+</p>
+
+<p>
+  <strong>Total Amount:</strong>
+  <%= @purchase.total_amount %> PEN
+</p>
+
+<h2>Tickets</h2>
+<ul>
+  <% @purchase.ticket_purchases.each do |ticket_purchase| %>
+    <li>
+      <strong>Ticket Name:</strong> <%= ticket_purchase.ticket.ticket_name %> <br>
+      <strong>Quantity:</strong> <%= ticket_purchase.quantity %> <br>
+      <strong>Subtotal:</strong> <%= ticket_purchase.subtotal %> PEN
+    </li>
+  <% end %>
+</ul>
+
+<!-- Enlace para proceder al pago -->
+<%= link_to 'Proceed to Payment', new_users_purchase_payment_path(@purchase), class: 'btn btn-primary' %>
+<%= link_to 'Back to Event', event_path(@purchase.event), class: 'btn btn-secondary' %>

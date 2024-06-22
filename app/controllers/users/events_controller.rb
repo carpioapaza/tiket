@@ -18,10 +18,10 @@ class Users::EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
     @event.category_id = params[:event][:category_id]
-
+    @event.tickets.each { |ticket| ticket.currency = Event::DEFAULT_CURRENCY }
     if @event.save
-      # AdminMailer.new_event_notification(@event, @event.admin).deliver_now
-      redirect_to users_event_path(@event), notice: 'Event created successfully. Waiting for approval.'
+      AdminMailer.new_event_notification(@event, @event.admin).deliver_now
+      redirect_to users_event_path(@event), notice: 'Evento creado con éxito. En espera de aprobación.'
     else
       render :new
     end
@@ -34,7 +34,7 @@ class Users::EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to users_event_path(@event), notice: 'Event updated successfully.'
+      redirect_to users_event_path(@event), notice: 'Evento actualizado correctamente.'
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class Users::EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to users_events_path, notice: 'Event deleted successfully.'
+    redirect_to users_events_path, notice: 'Evento eliminado correctamente.'
   end
 
   private

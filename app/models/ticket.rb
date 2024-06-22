@@ -19,6 +19,7 @@
 #
 class Ticket < ApplicationRecord
   belongs_to :event
+  has_many :ticket_purchases, dependent: :destroy
 
   validates :ticket_name, :quantity_available, :price, :currency, presence: true
   validates :quantity_available, numericality: { greater_than_or_equal_to: 0 }

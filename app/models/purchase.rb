@@ -24,4 +24,6 @@
 class Purchase < ApplicationRecord
   belongs_to :user
   belongs_to :event
+  has_many :ticket_purchases, dependent: :destroy
+  
 end
