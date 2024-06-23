@@ -53,6 +53,9 @@ class Event < ApplicationRecord
 
   before_validation :assign_to_event_admin, on: :create
   after_initialize :set_default_admin_status, if: :new_record?
+
+  scope :approved, -> { where(admin_status: admin_statuses[:approved]) }
+
   def minimum_ticket_price
     tickets.minimum(:price) || 0
   end

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
    def index
-    @events = Event.includes(:tickets)
+    @event_approved = Event.approved
 
     # render template: 'home/events/index_all'
   end
