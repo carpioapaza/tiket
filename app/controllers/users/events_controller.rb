@@ -3,7 +3,7 @@ class Users::EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    @events = Event.all
+    @events = current_user.events.includes(:tickets)
   end
   
   def show
