@@ -26,8 +26,6 @@ class SuperAdmin < ApplicationRecord
   has_many :categories
   has_many :admins
   has_many :cities
-
-  
   # enum role: { junior: 'junior', senior: 'senior', super_admin: 'super_admin' }
 
 end

@@ -1,0 +1,45 @@
+<% provide(:title, 'All Events') %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="mb-4">Todos los eventos</h1>
+      <p><%= link_to "Nuevo", new_users_event_path, class: 'btn btn-success btn-sm' %></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Capacity</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+              <tr>
+                <td><%= link_to event.name, users_event_path(event) %></td>
+                <td><%= event.capacity %></td>
+                <td>
+                  <% status_class = case event.admin_status
+                                   when "pending_approval" then 'badge bg-warning'
+                                   when "approved" then 'badge bg-success'
+                                   when "rejected" then 'badge bg-danger'
+                                   when "deleted" then 'badge bg-secondary'
+                                   end %>
+                  <span class="<%= status_class %>">
+                    <%= event.admin_status.humanize %>
+                  </span>
+                </td>
+                <td>
+                  <%= link_to 'Show', users_event_path(event), class: 'btn btn-primary btn-sm' %>
+
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
