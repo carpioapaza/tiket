@@ -1,4 +1,4 @@
-class SuperAdmins::AdminsController < ApplicationController
+class SuperAdmins::AdminsController < SuperAdminController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_super_admin!
 

@@ -1,5 +1,5 @@
 # app/controllers/super_admins/events_controller.rb
-class SuperAdmins::EventsController < ApplicationController
+class SuperAdmins::EventsController < SuperAdminController
   # ...
   def index
     @events = Event.all

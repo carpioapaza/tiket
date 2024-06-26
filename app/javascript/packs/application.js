@@ -26,6 +26,8 @@ import 'jquery';
 import 'cocoon-js';
 import '../stylesheets/application.scss';
 import '../stylesheets/custom.scss';
-import 'stylesheets/flatpickr.scss'; 
+import '../stylesheets/dashboard.scss';
+import 'stylesheets/flatpickr.scss';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 

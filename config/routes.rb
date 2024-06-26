@@ -19,12 +19,16 @@ Rails.application.routes.draw do
   end
 
   namespace :super_admins do
+    get 'dashboard', to: 'dashboard#index'
     resources :categories
     resources :admins
     resources :events, only: [:index, :show, :update, :new]
     resources :cities do
-      get 'event_statistics', on: :collection
-    end
+    get 'event_statistics', on: :collection
+  end
+  root "dashboard#index"
+
+    # Otras rutas que puedas necesitar para settings, stats, etc.
   end
 
   namespace :admins do

@@ -1,3 +1,0 @@
-class SuperAdminsController < ApplicationController
-  
-end
