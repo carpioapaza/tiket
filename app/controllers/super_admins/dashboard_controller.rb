@@ -12,5 +12,8 @@ class SuperAdmins::DashboardController < SuperAdminController
     @events = Event.includes(:category, :city).all
     @categories = Category.all
     @cities = City.all
+
+      @latest_events = Event.order(created_at: :desc).limit(5) 
+      @latest_users = User.order(created_at: :desc).limit(5)   
   end
 end

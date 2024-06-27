@@ -14,41 +14,41 @@
   <div class="dashboard_main">
     <!-- Sidebar -->
     <nav id="sidebar" class="sidebar" data-controller="sidebar" data-sidebar-target="sidebar">
-      <ul class="nav">
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_dashboard_path, class: 'nav-link', data: { search_target: 'dashboard' } do %>
+      <ul class="nav nav-dashboard">
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_dashboard_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'dashboard' } do %>
             <i class="bi bi-speedometer2"></i> <span class="sidebar__text">Dashboard</span>
           <% end %>
         </li>
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_events_path, class: 'nav-link', data: { search_target: 'events' } do %>
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_events_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'events' } do %>
             <i class="bi bi-calendar-event"></i> <span class="sidebar__text">Eventos</span>
           <% end %>
         </li>
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_categories_path, class: 'nav-link', data: { search_target: 'users' } do %>
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_categories_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'users' } do %>
             <i class="bi bi-people"></i> <span class="sidebar__text">Categorias</span>
           <% end %>
         </li>
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_cities_path, class: 'nav-link', data: { search_target: 'cities' } do %>
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_cities_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'cities' } do %>
             <i class="bi bi-people"></i> <span class="sidebar__text">Ciudades</span>
           <% end %>
         </li>
     
      
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'admins' } do %>
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_admins_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'admins' } do %>
             <i class="bi bi-shield"></i> <span class="sidebar__text">Admins</span>
           <% end %>
         </li>
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'Reports' } do %>
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_admins_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'Reports' } do %>
             <i class="bi bi-file-earmark-bar-graph"></i> <span class="sidebar__text">Reportes</span>
           <% end %>
         </li>
-        <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'stats' } do %>
+        <li class="nav-item nav-dashboard-item" data-sidebar-target="navLink">
+          <%= link_to super_admins_admins_path, class: 'nav-link nav-dashboard-link', data: { search_target: 'stats' } do %>
             <i class="bi bi-bar-chart-line"></i> <span class="sidebar__text">Stats</span>
           <% end %>
         </li>

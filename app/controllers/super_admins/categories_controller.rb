@@ -3,7 +3,7 @@ class SuperAdmins::CategoriesController < SuperAdminController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @categories = current_super_admin.categories
+    @categories = Category.includes(:events).all
   end
 
   def show
