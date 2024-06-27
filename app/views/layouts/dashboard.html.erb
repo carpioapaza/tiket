@@ -21,8 +21,8 @@
           <% end %>
         </li>
         <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'users' } do %>
-            <i class="bi bi-people"></i> <span class="sidebar__text">Users</span>
+          <%= link_to super_admins_events_path, class: 'nav-link', data: { search_target: 'events' } do %>
+            <i class="bi bi-calendar-event"></i> <span class="sidebar__text">Eventos</span>
           <% end %>
         </li>
         <li class="nav-item" data-sidebar-target="navLink">
@@ -31,18 +31,20 @@
           <% end %>
         </li>
         <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_events_path, class: 'nav-link', data: { search_target: 'events' } do %>
-            <i class="bi bi-calendar-event"></i> <span class="sidebar__text">Events</span>
+          <%= link_to super_admins_cities_path, class: 'nav-link', data: { search_target: 'cities' } do %>
+            <i class="bi bi-people"></i> <span class="sidebar__text">Ciudades</span>
           <% end %>
         </li>
+    
+     
         <li class="nav-item" data-sidebar-target="navLink">
           <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'admins' } do %>
             <i class="bi bi-shield"></i> <span class="sidebar__text">Admins</span>
           <% end %>
         </li>
         <li class="nav-item" data-sidebar-target="navLink">
-          <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'settings' } do %>
-            <i class="bi bi-gear"></i> <span class="sidebar__text">Settings</span>
+          <%= link_to super_admins_admins_path, class: 'nav-link', data: { search_target: 'Reports' } do %>
+            <i class="bi bi-file-earmark-bar-graph"></i> <span class="sidebar__text">Reportes</span>
           <% end %>
         </li>
         <li class="nav-item" data-sidebar-target="navLink">

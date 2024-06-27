@@ -8,5 +8,9 @@ class SuperAdmins::DashboardController < SuperAdminController
       labels: @events_by_category.map(&:category_name),
       data: @events_by_category.map(&:event_count)
     }
+
+    @events = Event.includes(:category, :city).all
+    @categories = Category.all
+    @cities = City.all
   end
 end

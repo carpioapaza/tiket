@@ -1,15 +1,15 @@
-<div class="container">
-  <h1 class="mt-4">Admin Details</h1>
+<div class="container-fluid">
+  <h1 class="fw-bold">Detalles del administrador</h1>
 
   <div class="card">
     <div class="card-body">
       <p class="card-text">
-        <strong>First Name:</strong>
+        <strong>Nombre:</strong>
         <%= @admin.first_name %>
       </p>
 
       <p class="card-text">
-        <strong>Last Name:</strong>
+        <strong>Apellido:</strong>
         <%= @admin.last_name %>
       </p>
 
@@ -19,7 +19,7 @@
       </p>
 
       <p class="card-text">
-        <strong>Role:</strong>
+        <strong>Rol:</strong>
         <%= @admin.role.titleize %>
       </p>
       
@@ -28,8 +28,8 @@
     </div>
   </div>
 
-  <div class="mt-4">
-    <h2>Events</h2>
+  <div >
+    <h2 class="fw-bold">Events</h2>
     <% if @admin.events.any? %>
       <table class="table">
         <thead>

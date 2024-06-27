@@ -1,4 +1,4 @@
-class SuperAdmins::CitiesController < ApplicationController
+class SuperAdmins::CitiesController < SuperAdminController
   before_action :set_city, only: %i[show edit update destroy]
   before_action :authenticate_super_admin! 
   def index
