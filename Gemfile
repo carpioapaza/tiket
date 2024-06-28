@@ -38,6 +38,8 @@ gem "devise"
 gem 'image_processing'
 gem 'cocoon'
 gem 'mini_magick', '~> 4.12'
+gem 'prawn'
+gem 'prawn-table'
 
 
 
