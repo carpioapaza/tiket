@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :admins
     resources :events, only: [:index, :show, :update, :new]
+    resources :reports
     resources :cities do
     get 'event_statistics', on: :collection
   end
