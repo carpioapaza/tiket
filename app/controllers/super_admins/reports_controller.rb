@@ -1,54 +1,13 @@
-
 class SuperAdmins::ReportsController < SuperAdminController
- def index; end
-
-  def general_summary
-    send_data generate_general_summary_report.render,
-              filename: "informe_resumen_general.pdf",
-              type: 'application/pdf',
-              disposition: 'inline'
+  def index
   end
 
-  private
+  def generate_and_download_report
+    GenerateReportJob.perform_later
 
-  def generate_general_summary_report
-    pdf = Prawn::Document.new
-    pdf.text "Informe Resumen General", size: 24, style: :bold, align: :center
-
-    # Sección de Resumen
-    pdf.move_down 20
-    pdf.text "Resumen", size: 18, style: :bold
-    pdf.move_down 10
-    pdf.text "Total de Eventos: #{Event.count}"
-    pdf.text "Total de Categorías: #{Category.count}"
-    pdf.text "Total de Ciudades: #{City.count}"
-
-    pdf.move_down 20
-    pdf.text "Desglose de Eventos por Categoría", size: 18, style: :bold
-    category_data = Category.joins(:events).group(:name).count
-    pdf.table(category_data.map { |category, count| [category, count] }, header: true, row_colors: ['dddddd', 'ffffff'])
-
-    pdf.move_down 20
-    pdf.text "Detalles de Eventos", size: 18, style: :bold
-    event_data = [["Nombre", "Descripción", "Fecha de Inicio", "Fecha de Fin", "Categoría", "Ciudad", "User"]]
-    Event.includes(:category, :city, :user).each do |event|
-      event_data << [event.name, event.description, event.start_datetime.to_s, event.end_datetime.to_s, event.category.name, event.city.name, event.user.email || event.user.name]
+    respond_to do |format|
+      format.js { render inline: "window.location.reload();" } # Recarga la página para permitir la descarga
+      format.html { redirect_to super_admins_reports_path, notice: "El informe se está generando y estará disponible pronto." }
     end
-    pdf.table(event_data, header: true, row_colors: ['dddddd', 'ffffff'])
-
-    pdf.move_down 20
-    pdf.text "Ventas de Entradas", size: 18, style: :bold
-    ticket_data = [["Evento", "Nombre de la Entrada", "Cantidad Vendida", "Ingresos Totales"]]
-    Event.includes(tickets: :ticket_purchases).each do |event|
-      event.tickets.each do |ticket|
-        ticket_data << [event.name, ticket.ticket_name, ticket.ticket_purchases.sum(:quantity), ticket.ticket_purchases.sum(:subtotal)]
-      end
-    end
-    pdf.table(ticket_data, header: true, row_colors: ['dddddd', 'ffffff'])
-
-    # Pie de Página
-    pdf.number_pages "Página <page> de <total>", at: [pdf.bounds.right - 50, 0], align: :right
-
-    pdf
   end
 end

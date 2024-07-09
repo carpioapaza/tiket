@@ -40,8 +40,9 @@ gem 'cocoon'
 gem 'mini_magick', '~> 4.12'
 gem 'prawn'
 gem 'prawn-table'
-
-
+gem 'delayed_job_active_record'
+gem 'delayed_job'
+gem 'daemons'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

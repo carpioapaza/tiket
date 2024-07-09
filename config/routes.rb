@@ -24,10 +24,8 @@ Rails.application.routes.draw do
     resources :admins
     resources :events, only: [:index, :show, :update, :new]
     resources :reports, only: [:index] do
-        collection do
-          get :general_summary
-        end
-      end
+      post 'generate_and_download_report', on: :collection
+    end
     resources :cities do
     get 'event_statistics', on: :collection
   end
