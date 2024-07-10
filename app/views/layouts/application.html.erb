@@ -11,20 +11,20 @@
   </head>
 
   <body>
-  <%= render 'layouts/navbar' %>
+    <%= render 'layouts/navbar' %>
 
-      <div class="container mt-5">
-        <% if notice %>
-          <div class="alert alert-primary" role="alert">
-            <%= notice %>
-          </div>
-        <% end %>
-        <% if alert %>
-          <div class="alert alert-danger" role="alert">
-            <%= alert %>
-          </div>
-        <% end %>
-        <%= yield %>
+    <div class="container mt-5">
+      <% if notice %>
+        <div class="alert alert-primary" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <%= yield %>
     </div>
   </body>
 </html>

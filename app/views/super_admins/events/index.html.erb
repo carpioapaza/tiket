@@ -21,15 +21,9 @@
             <td><%= link_to event.name, users_event_path(event) %></td>
             <td><%= event.capacity %></td>
             <td>
-              <% status_class = case event.admin_status
-                               when "pending_approval" then 'badge bg-warning'
-                               when "approved" then 'badge bg-success'
-                               when "rejected" then 'badge bg-danger'
-                               when "deleted" then 'badge bg-secondary'
-                               end %>
-              <span class="<%= status_class %>">
-                <%= event.admin_status.humanize %>
-              </span>
+            <span class="<%= event_status_class(event.admin_status) %>">
+              <%= event.admin_status.humanize %>
+            </span>
             </td>
             <td>
               <%= link_to users_event_path(event), class: 'btn btn-info btn-sm', title: 'Show' do %>
