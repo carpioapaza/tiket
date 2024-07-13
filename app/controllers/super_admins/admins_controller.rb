@@ -3,7 +3,7 @@ class SuperAdmins::AdminsController < SuperAdminController
   before_action :authenticate_super_admin!
 
   def index
-    @admins = Admin.all
+    @admins = Admin.all.includes(:events)
   end
 
   def show

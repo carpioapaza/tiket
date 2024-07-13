@@ -13,4 +13,8 @@ module EventsHelper
       "badge bg-secondary"
     end
   end
+
+  def event_status_count(admin, status)
+    admin.events.where(admin_status: Event.admin_statuses[status]).count
+  end
 end
