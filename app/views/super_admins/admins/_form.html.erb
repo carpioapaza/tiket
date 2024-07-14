@@ -31,7 +31,7 @@
     <%= form.select :role, Admin.roles.keys.map { |role| [role.titleize, role] }, {}, class: 'form-control' %>
   </div>
 
-  <div class="actions">
+  <div class="actions mt-2">
     <%= form.submit 'Guardar', class: 'btn btn-primary' %>
   </div>
 <% end %>
