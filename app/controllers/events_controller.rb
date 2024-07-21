@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
    def index
     @event_approved = Event.approved
+    @featured_events = Event.approved.limit(5)
 
     # render template: 'home/events/index_all'
   end

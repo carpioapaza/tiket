@@ -1,0 +1,18 @@
+<div id="featuredEventsCarousel" class="carousel slide full-width-carousel" data-bs-ride="carousel" data-controller="carousel" data-carousel-interval="1500">
+  <div class="carousel-inner">
+    <% @featured_events.each_with_index do |event, index| %>
+      <div class="carousel-item <%= 'active' if index == 0 %>">
+        <%= link_to users_event_path(event) do %>
+          <%= image_tag event.image, class: "d-block w-100 h-100", alt: event.name %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  
+  <a class="carousel-control-prev" href="#featuredEventsCarousel" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </a>
+  <a class="carousel-control-next" href="#featuredEventsCarousel" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
+</div>

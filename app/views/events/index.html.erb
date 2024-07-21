@@ -1,7 +1,5 @@
-<%# Hola, esta será la pagina para msotrar lo siguiente:
--Eventos recientes
--Eventos populares
--Etc %>
-<div class="container">
-    <%= render 'events', events: @events %>
+
+<div class="container d-flex flex-column gap-4">
+  <%= render 'carousel', featured_events: @featured_events %>
+  <%= render 'events', events: @events %>
 </div>

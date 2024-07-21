@@ -1,0 +1,13 @@
+.full-width-carousel {
+  width: 100vw;
+  height: 50vh;
+  margin-left: calc(50% - 50vw);
+
+  .carousel-item {
+    height: 50vh;
+    img {
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+}
