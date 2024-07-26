@@ -2,7 +2,7 @@
   <div class="carousel-inner">
     <% @featured_events.each_with_index do |event, index| %>
       <div class="carousel-item <%= 'active' if index == 0 %>">
-        <%= link_to users_event_path(event) do %>
+        <%= link_to event_path(event) do %>
           <%= image_tag event.image, class: "d-block w-100 h-100", alt: event.name %>
         <% end %>
       </div>

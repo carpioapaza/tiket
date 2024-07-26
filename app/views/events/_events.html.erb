@@ -1,26 +1,30 @@
 <div class="event-grid">
   <% @event_approved.each do |event| %>
-    <div class="event-card">
-      <div class="event-img">
-        <%= image_tag event.image, class: "img-fluid", alt: event.name %>
-      </div>
+    <article class="event-card">
+      <%= link_to event_path(event) do %>
+        <figure class="event-img">
+          <%= image_tag event.image, class: "img-fluid", alt: event.name %>
+        </figure>
+      <% end %>
       <div class="event-details">
-        <h5 class="event-title"><%= truncate(event.name, length: 50) %></h5>
+        <header>
+          <h5 class="event-title"><%= truncate(event.name, length: 50) %></h5>
+        </header>
         <p class="event-description"><%= truncate(event.description, length: 60) %></p>
         <p class="event-dates">
           <i class="fa fa-calendar"></i>
           <%= l(event.start_datetime, format: :short) %> - <%= l(event.end_datetime, format: :short) %>
         </p>
-        <div class="event-footer">
+        <footer class="event-footer">
           <div class="event-price">
             <small class="text-muted">Desde:</small>
-            <strong> S/ <%=(event.minimum_ticket_price) %></strong>
+            <strong>S/ <%= event.minimum_ticket_price %></strong>
           </div>
           <div class="details-link">
             <%= link_to "Detalles", event_path(event), class: "btn btn-primary" %>
           </div>
-        </div>
+        </footer>
       </div>
-    </div>
+    </article>
   <% end %>
 </div>
